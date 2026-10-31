@@ -1,6 +1,6 @@
 # TempSticky
 
-A persistent desktop temperature overlay for Windows 11. It shows the real CPU
+A persistent desktop temperature overlay for Windows 10/11. It shows the real CPU
 package temperature as a floating note, a compact pill, and a tray badge that
 changes colour as the machine moves between **cool → optimal → warm → high**.
 

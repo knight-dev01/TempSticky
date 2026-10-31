@@ -53,7 +53,7 @@ To make the project downloadable as a release, you need to create a GitHub Relea
 ```markdown
 # TempSticky v1.0.0 - Initial Release
 
-A persistent desktop temperature overlay for Windows 11 that shows real CPU package temperature as a floating note with color-coded states.
+A persistent desktop temperature overlay for Windows 10/11 that shows real CPU package temperature as a floating note with color-coded states.
 
 ## ✨ Features
 
