@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TempSticky - Monitor your CPU temperature with a beautiful desktop overlay for Windows 10/11">
+    <meta name="keywords" content="CPU temperature, Windows, temperature monitor, system tray, free software">
+    <title>TempSticky - CPU Temperature Monitor for Windows</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header with gradient background */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+            position: relative;
+        }
+
+        .hero .tagline {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            animation: fadeInUp 1s;
+            position: relative;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: #4CAF50;
+            color: white;
+            padding: 20px 60px;
+            font-size: 1.3em;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            margin: 20px 10px;
+            position: relative;
+            animation: fadeInUp 1.2s;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+            background: #45a049;
+        }
+
+        .download-btn i {
+            margin-right: 10px;
+        }
+
+        .github-btn {
+            background: #333;
+        }
+
+        .github-btn:hover {
+            background: #000;
+        }
+
+        .info {
+            font-size: 1.1em;
+            margin-top: 30px;
+            opacity: 0.9;
+            position: relative;
+        }
+
+        /* Screenshot section */
+        .screenshot-section {
+            padding: 80px 20px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .screenshot-section img {
+            max-width: 800px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            animation: fadeIn 1s;
+        }
+
+        /* Features section */
+        .features {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #667eea;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .feature-description {
+            color: #666;
+            font-size: 1.05em;
+        }
+
+        /* How to install section */
+        .install-section {
+            padding: 80px 20px;
+            background: #667eea;
+            color: white;
+        }
+
+        .install-section h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step {
+            background: rgba(255,255,255,0.15);
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .step:hover {
+            transform: translateX(10px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .step-number {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.5em;
+            margin-right: 20px;
+        }
+
+        .step-content {
+            display: inline-block;
+            vertical-align: top;
+            width: calc(100% - 80px);
+        }
+
+        .step-title {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        /* System Requirements */
+        .requirements {
+            padding: 80px 20px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .requirements h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #667eea;
+        }
+
+        .req-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .req-item {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .req-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .req-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #45a049;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Temperature states */
+        .temp-states {
+            padding: 80px 20px;
+            background: white;
+        }
+
+        .temp-states h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #667eea;
+        }
+
+        .states-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .state-card {
+            padding: 30px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .state-card:hover {
+            transform: scale(1.05);
+        }
+
+        .state-cool { background: linear-gradient(135deg, #00b4db 0%, #0083b0 100%); }
+        .state-optimal { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .state-warm { background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%); }
+        .state-hot { background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); }
+
+        .state-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .state-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .state-temp {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            .hero .tagline {
+                font-size: 1.2em;
+            }
+            .download-btn {
+                padding: 15px 40px;
+                font-size: 1.1em;
+            }
+            .features h2, .install-section h2, .requirements h2, .temp-states h2 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>🌡️ TempSticky</h1>
+        <p class="tagline">Monitor Your CPU Temperature Beautifully</p>
+        
+        <a href="https://github.com/knight-dev01/TempSticky/releases/download/v1.0.0/TempSticky-1.0.0-win.zip" class="download-btn">
+            ⬇️ Download for Windows
+        </a>
+        
+        <a href="https://github.com/knight-dev01/TempSticky" class="download-btn github-btn">
+            📦 View on GitHub
+        </a>
+        
+        <p class="info">Windows 10/11 • 106 MB • Free & Open Source</p>
+        <p class="info">✨ No installation required - just extract and run!</p>
+    </section>
+
+    <!-- Screenshot Section -->
+    <section class="screenshot-section">
+        <img src="../ui-preview.png" alt="TempSticky Screenshot" onerror="this.style.display='none'">
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2>✨ Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">Real-Time Monitoring</div>
+                <div class="feature-description">Updates every 2 seconds with accurate CPU temperature</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <div class="feature-title">Color-Coded States</div>
+                <div class="feature-description">Instantly know if your PC is cool, optimal, warm, or hot</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📌</div>
+                <div class="feature-title">Always On Top</div>
+                <div class="feature-description">Sticky note stays visible while you work or game</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💨</div>
+                <div class="feature-title">Lightweight</div>
+                <div class="feature-description">Uses only ~1% CPU and 50MB RAM</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔧</div>
+                <div class="feature-title">Portable</div>
+                <div class="feature-description">No installation needed - run from anywhere</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⌨️</div>
+                <div class="feature-title">Keyboard Shortcuts</div>
+                <div class="feature-description">Ctrl+Alt+T to show/hide instantly</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Temperature States -->
+    <section class="temp-states">
+        <h2>🌡️ Temperature States</h2>
+        <div class="states-grid">
+            <div class="state-card state-cool">
+                <div class="state-icon">🔵</div>
+                <div class="state-title">Cool</div>
+                <div class="state-temp">Below 50°C</div>
+            </div>
+
+            <div class="state-card state-optimal">
+                <div class="state-icon">🟢</div>
+                <div class="state-title">Optimal</div>
+                <div class="state-temp">50 - 75°C</div>
+            </div>
+
+            <div class="state-card state-warm">
+                <div class="state-icon">🟡</div>
+                <div class="state-title">Warm</div>
+                <div class="state-temp">75 - 88°C</div>
+            </div>
+
+            <div class="state-card state-hot">
+                <div class="state-icon">🔴</div>
+                <div class="state-title">Hot</div>
+                <div class="state-temp">88°C and above</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Steps -->
+    <section class="install-section">
+        <h2>🚀 Quick Start - 3 Easy Steps</h2>
+        <div class="steps">
+            <div class="step">
+                <span class="step-number">1</span>
+                <div class="step-content">
+                    <div class="step-title">Download & Extract</div>
+                    <p>Download the ZIP file and extract it to any folder (Desktop, Documents, etc.)</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <div class="step-content">
+                    <div class="step-title">First-Time Setup</div>
+                    <p>Right-click <code>resources\scripts\setup-sensor.ps1</code> → "Run with PowerShell" → Click "Yes"</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <div class="step-content">
+                    <div class="step-title">Run TempSticky</div>
+                    <p>Double-click <code>TempSticky.exe</code> and enjoy!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- System Requirements -->
+    <section class="requirements">
+        <h2>💻 System Requirements</h2>
+        <div class="req-grid">
+            <div class="req-item">
+                <div class="req-icon">💿</div>
+                <div class="req-label">Operating System</div>
+                <div>Windows 10/11</div>
+            </div>
+
+            <div class="req-item">
+                <div class="req-icon">💾</div>
+                <div class="req-label">Disk Space</div>
+                <div>200 MB</div>
+            </div>
+
+            <div class="req-item">
+                <div class="req-icon">🧠</div>
+                <div class="req-label">RAM</div>
+                <div>50 MB</div>
+            </div>
+
+            <div class="req-item">
+                <div class="req-icon">⚙️</div>
+                <div class="req-label">.NET Framework</div>
+                <div>4.7.2+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Made with ❤️ by <a href="https://github.com/knight-dev01">knight-dev01</a></p>
+        <p style="margin-top: 10px;">
+            <a href="https://github.com/knight-dev01/TempSticky">GitHub</a> • 
+            <a href="https://github.com/knight-dev01/TempSticky/issues">Report Issue</a> • 
+            <a href="https://github.com/knight-dev01/TempSticky/blob/main/LICENSE.txt">License (MIT)</a>
+        </p>
+        <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9em;">
+            TempSticky v1.0.0 • Free & Open Source
+        </p>
+    </footer>
+</body>
+</html>

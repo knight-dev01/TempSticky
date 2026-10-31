@@ -19,13 +19,12 @@
     "win": {
       "target": [
         {
-          "target": "zip",
+          "target": "portable",
           "arch": ["x64"]
         }
       ],
       "icon": "assets/tempsticky.ico",
-      "requestedExecutionLevel": "asInvoker",
-      "signAndEditExecutable": false
+      "artifactName": "TempSticky-Setup-${version}.${ext}"
     },
     "nsis": {
       "oneClick": false,
