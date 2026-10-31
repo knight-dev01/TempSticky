@@ -1,14 +1,70 @@
 {
   "name": "temp-sticky",
   "version": "1.0.0",
-  "private": true,
   "description": "Persistent sticky-note + tray overlay that shows live system temperature with optimal/warm/hot states.",
   "main": "src/main.js",
+  "author": "knight-dev01",
+  "license": "MIT",
   "scripts": {
     "start": "electron .",
-    "probe": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/probe-sensors.ps1"
+    "probe": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/probe-sensors.ps1",
+    "build": "electron-builder",
+    "build:win": "electron-builder --win --x64",
+    "dist": "electron-builder --win --x64 --publish never"
+  },
+  "build": {
+    "appId": "com.tempsticky.app",
+    "productName": "TempSticky",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/tempsticky.ico",
+      "requestedExecutionLevel": "requireAdministrator"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "TempSticky",
+      "installerIcon": "assets/tempsticky.ico",
+      "uninstallerIcon": "assets/tempsticky.ico",
+      "installerHeaderIcon": "assets/tempsticky.ico",
+      "deleteAppDataOnUninstall": false,
+      "runAfterFinish": true,
+      "license": "LICENSE.txt"
+    },
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "scripts/**/*",
+      "sensor/**/*",
+      "tools/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "scripts",
+        "to": "scripts",
+        "filter": ["**/*"]
+      },
+      {
+        "from": "sensor",
+        "to": "sensor",
+        "filter": ["**/*"]
+      }
+    ],
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    }
   },
   "devDependencies": {
-    "electron": "^33.4.11"
+    "electron": "^33.4.11",
+    "electron-builder": "^24.13.3"
   }
 }
