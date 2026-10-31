@@ -1,0 +1,14 @@
+{
+  "name": "temp-sticky",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Persistent sticky-note + tray overlay that shows live system temperature with optimal/warm/hot states.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "probe": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/probe-sensors.ps1"
+  },
+  "devDependencies": {
+    "electron": "^33.4.11"
+  }
+}

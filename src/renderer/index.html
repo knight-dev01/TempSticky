@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src data:;" />
+  <title>TempSticky</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="note" id="note">
+    <div class="glow" aria-hidden="true"></div>
+
+    <header id="dragbar" title="Drag to move · double-click for compact mode">
+      <div class="brand">
+        <span class="pulse" id="pulse"></span>
+        <span class="brand-text">SYSTEM TEMP</span>
+      </div>
+      <div class="actions">
+        <button class="icon-btn" id="btn-pin" title="Always on top" aria-label="Always on top">
+          <svg viewBox="0 0 24 24"><path d="M9 4h6l-1 6 3 3H7l3-3-1-6Z"/><path d="M12 13v7"/></svg>
+        </button>
+        <button class="icon-btn" id="btn-settings" title="Settings" aria-label="Settings">
+          <svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+        </button>
+        <button class="icon-btn" id="btn-mini" title="Compact mode" aria-label="Compact mode">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+        </button>
+        <button class="icon-btn danger" id="btn-hide" title="Hide to tray" aria-label="Hide to tray">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="full">
+      <section class="reading-wrap">
+        <div class="reading">
+          <span id="temp">--</span><span class="unit">°C</span>
+        </div>
+        <div class="state" id="state">WAITING</div>
+      </section>
+
+      <section class="chart">
+        <canvas id="spark" width="520" height="128"></canvas>
+        <div class="chart-empty" id="chart-empty">collecting samples…</div>
+      </section>
+
+      <section class="stats">
+        <div class="stat"><b id="min">--</b><span>MIN</span></div>
+        <div class="stat"><b id="max">--</b><span>MAX</span></div>
+        <div class="stat"><b id="load">--</b><span>LOAD</span></div>
+        <div class="stat" id="gpu-stat"><b id="gpu">--</b><span>GPU</span></div>
+      </section>
+
+      <section class="band-wrap">
+        <div class="band"><div class="marker" id="marker"></div></div>
+        <div class="band-labels"><span>0°</span><span id="band-hot">88°</span><span>100°</span></div>
+      </section>
+    </main>
+
+    <div class="mini" id="mini">
+      <div class="mini-left">
+        <span class="mini-temp" id="mini-temp">--°</span>
+        <span class="mini-dot" id="mini-dot"></span>
+      </div>
+      <button class="mini-expand" id="btn-expand" title="Expand" aria-label="Expand">
+        <svg viewBox="0 0 24 24"><path d="M9 5H5v4M15 19h4v-4M5 5l6 6M19 19l-6-6"/></svg>
+      </button>
+    </div>
+
+    <footer id="footer">
+      <span class="source" id="source">sensor: detecting…</span>
+      <span class="updated" id="updated">--</span>
+    </footer>
+
+    <div class="offline-bar" id="offline-bar" hidden>
+      <span id="offline-text">Sensor offline</span>
+      <button id="btn-fix">Restart</button>
+    </div>
+
+    <div class="panel" id="panel" aria-hidden="true">
+      <div class="panel-head">
+        <span>Settings</span>
+        <button class="icon-btn" id="panel-close" aria-label="Close settings">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+
+      <div class="field">
+        <label for="coolMax">Cool below</label>
+        <input type="range" id="coolMax" min="20" max="80" step="1" />
+        <output id="coolMax-v">50°</output>
+      </div>
+      <div class="field">
+        <label for="warmMax">Optimal up to</label>
+        <input type="range" id="warmMax" min="40" max="95" step="1" />
+        <output id="warmMax-v">75°</output>
+      </div>
+      <div class="field">
+        <label for="hotMin">High above</label>
+        <input type="range" id="hotMin" min="60" max="105" step="1" />
+        <output id="hotMin-v">88°</output>
+      </div>
+      <div class="field">
+        <label for="opacity">Opacity</label>
+        <input type="range" id="opacity" min="0.55" max="1" step="0.01" />
+        <output id="opacity-v">94%</output>
+      </div>
+
+      <div class="toggles">
+        <label class="switch"><input type="checkbox" id="alwaysOnTop" /><span></span>Always on top</label>
+        <label class="switch"><input type="checkbox" id="autoStart" /><span></span>Run at login</label>
+        <label class="switch"><input type="checkbox" id="showGpu" /><span></span>Show GPU temp</label>
+      </div>
+
+      <div class="panel-actions">
+        <button class="ghost" id="btn-reset-pos">Reset note</button>
+        <button class="ghost" id="btn-setup2">Sensor setup</button>
+      </div>
+      <div class="hint">Ctrl + Alt + T toggles the note</div>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
