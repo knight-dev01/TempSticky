@@ -10,7 +10,8 @@
     "probe": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/probe-sensors.ps1",
     "build": "electron-builder",
     "build:win": "electron-builder --win --x64",
-    "dist": "electron-builder --win --x64 --publish never"
+    "dist": "electron-builder --win --x64 --publish never",
+    "dist:portable": "electron-builder --win --x64 --dir"
   },
   "build": {
     "appId": "com.tempsticky.app",
@@ -23,7 +24,9 @@
         }
       ],
       "icon": "assets/tempsticky.ico",
-      "requestedExecutionLevel": "requireAdministrator"
+      "requestedExecutionLevel": "requireAdministrator",
+      "sign": null,
+      "verifyUpdateCodeSignature": false
     },
     "nsis": {
       "oneClick": false,
