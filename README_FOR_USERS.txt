@@ -20,6 +20,32 @@ There is no ZIP file, no extraction, and no separate setup step.
 If Windows SmartScreen appears, click "More info", then "Run anyway". This is
 normal for a new installer that has not been downloaded very often yet.
 
+If you downloaded the file with Edge, choose "Keep" from the download menu
+first. Edge hides blocked downloads behind the three-dot menu or the download
+bubble.
+
+The warning is a reputation warning, not a virus detection. The permanent fix
+is code signing or Microsoft Store distribution.
+
+======================================================================
+VERIFY THE DOWNLOAD
+======================================================================
+
+SHA-256 for TempSticky-Setup-1.0.0.exe:
+
+  382D0863A4A8BD7DB7F575097993C854B2FE48BA5805CABCB970B2E80DD3D098
+
+To check it, open PowerShell in the folder that contains the installer and run:
+
+  Get-FileHash .\TempSticky-Setup-1.0.0.exe -Algorithm SHA256
+
+The hash must match exactly. The same value is published in SHA256SUMS.txt on
+the release page.
+
+If you trust the file and want to clear the download flag before running it:
+
+  Unblock-File .\TempSticky-Setup-1.0.0.exe
+
 ========================================================================
 USING TEMPSTICKY
 ========================================================================

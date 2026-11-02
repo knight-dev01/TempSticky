@@ -26,6 +26,12 @@ double-click it, and approve the Windows permission prompt. The installer sets
 up the app, the desktop and Start Menu shortcuts, and the temperature sensor
 task, then starts TempSticky automatically.
 
+Windows SmartScreen may warn that the file "isn't commonly downloaded." Choose
+**More info**, then **Run anyway**. This is a reputation warning for a new
+unsigned installer, not a virus detection. Compare your download against
+[SHA256SUMS.txt](https://github.com/knight-dev01/TempSticky/releases/download/v1.0.0/SHA256SUMS.txt)
+if you want to confirm it is intact.
+
 The rest of this document describes how to run and develop TempSticky from
 source.
 

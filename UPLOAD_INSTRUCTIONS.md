@@ -22,16 +22,25 @@ The installer is a one-click NSIS package. It installs to Program Files,
 creates desktop and Start Menu shortcuts, sets up the temperature sensor, and
 launches the app when it finishes.
 
+Create the checksum file that users compare against:
+
+```powershell
+$hash = (Get-FileHash "dist/TempSticky-Setup-1.0.0.exe" -Algorithm SHA256).Hash
+"$hash  TempSticky-Setup-1.0.0.exe" | Out-File -Encoding ascii -NoNewline "dist/SHA256SUMS.txt"
+Get-Content "dist/SHA256SUMS.txt"
+```
+
 ## Publish with the GitHub website
 
 1. Open https://github.com/knight-dev01/TempSticky/releases
 2. Choose the release, or create a new tag such as `v1.0.1`.
 3. Edit the release.
 4. Upload `dist/TempSticky-Setup-<version>.exe` under Assets.
-5. Remove any older ZIP, portable EXE, or loose DLL assets so users cannot
+5. Upload `dist/SHA256SUMS.txt` under Assets.
+6. Remove any older ZIP, portable EXE, or loose DLL assets so users cannot
    download the wrong file.
-6. Replace the description with the release notes below.
-7. Save the release.
+7. Replace the description with the release notes below.
+8. Save the release.
 
 The download URL will be:
 
@@ -59,7 +68,18 @@ The installer places the app in Program Files, creates desktop and Start Menu
 shortcuts, and sets up the temperature sensor and its background task. There is
 no ZIP file, no extraction, and no separate setup step.
 
-If Windows SmartScreen appears, click **More info**, then **Run anyway**.
+If Windows SmartScreen appears, click **More info**, then **Run anyway**. This
+is a reputation warning, not a virus detection.
+
+Verify the download against
+[SHA256SUMS.txt](https://github.com/knight-dev01/TempSticky/releases/download/v1.0.1/SHA256SUMS.txt).
+In PowerShell:
+
+```powershell
+Get-FileHash .\TempSticky-Setup-1.0.1.exe -Algorithm SHA256
+```
+
+The permanent fix is code signing or Microsoft Store distribution.
 
 ## Features
 
@@ -101,7 +121,7 @@ MIT License. Free and open source.
 If the GitHub CLI is available:
 
 ```powershell
-gh release upload v1.0.1 "dist/TempSticky-Setup-1.0.1.exe" --clobber
+gh release upload v1.0.1 "dist/TempSticky-Setup-1.0.1.exe" "dist/SHA256SUMS.txt" --clobber
 ```
 
 Without the CLI, use the website steps above. GitHub's asset upload endpoint
@@ -121,7 +141,9 @@ Invoke-WebRequest `
 ## Check the download
 
 After publishing, open the asset URL in a private browser window and confirm
-that the file downloads and its size matches `dist`.
+that the file downloads and its size matches `dist`. Run
+`Get-FileHash .\TempSticky-Setup-<version>.exe -Algorithm SHA256` and confirm it
+matches `dist/SHA256SUMS.txt`.
 
 ## Website
 
