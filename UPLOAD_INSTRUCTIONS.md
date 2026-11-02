@@ -1,336 +1,139 @@
-# 📤 Upload Instructions for GitHub Releases
+# Uploading a TempSticky release
 
-## 🎯 What to Upload
+This guide is for the maintainer. It covers building the one-click installer
+and publishing it on GitHub.
 
-**File:** `TempSticky-Setup-1.0.0.zip`  
-**Location:** `C:\Users\DELL\Documents\Default Project\TempSticky\dist\TempSticky-Setup-1.0.0.zip`  
-**Size:** 110 MB
+## Build the installer
 
----
-
-## 🚀 How to Upload (5 minutes)
-
-### Step 1: Open Releases Page
-
-Click this link:
-```
-https://github.com/knight-dev01/TempSticky/releases/new
+```powershell
+# From the repository root
+npm install
+$env:CSC_IDENTITY_AUTO_DISCOVERY = "false"
+npx electron-builder --win nsis --x64 --publish never
 ```
 
-### Step 2: Fill in Release Information
+Output:
 
-**Tag version:**
 ```
-v1.0.0
-```
-*(Type this and select "Create new tag: v1.0.0 on publish")*
-
-**Release title:**
-```
-TempSticky v1.0.0 - One-Click Installer
+dist/TempSticky-Setup-1.0.0.exe
 ```
 
-**Description:** *(Copy everything below)*
+The installer is a one-click NSIS package. It installs to Program Files,
+creates desktop and Start Menu shortcuts, sets up the temperature sensor, and
+launches the app when it finishes.
+
+## Publish with the GitHub website
+
+1. Open https://github.com/knight-dev01/TempSticky/releases
+2. Choose the release, or create a new tag such as `v1.0.1`.
+3. Edit the release.
+4. Upload `dist/TempSticky-Setup-<version>.exe` under Assets.
+5. Remove any older ZIP, portable EXE, or loose DLL assets so users cannot
+   download the wrong file.
+6. Replace the description with the release notes below.
+7. Save the release.
+
+The download URL will be:
+
+```
+https://github.com/knight-dev01/TempSticky/releases/download/v1.0.1/TempSticky-Setup-1.0.1.exe
+```
+
+## Release notes template
 
 ```markdown
-# 🌡️ TempSticky v1.0.0 - Auto-Installing Edition
+A persistent desktop temperature overlay for Windows 10 and 11.
 
-Monitor your CPU temperature beautifully! Installation takes just 3 clicks.
+## Download
 
-## 📥 Download & Install
+**[TempSticky-Setup-1.0.1.exe](DOWNLOAD_URL_HERE)** (78 MB)
 
-### One Simple Download - Everything Included!
+## Install
 
-**No technical knowledge needed - the installer does everything automatically!**
+1. Download the installer.
+2. Double-click `TempSticky-Setup-1.0.1.exe`.
+3. Choose **Yes** when Windows asks for permission.
+4. Wait a few seconds. TempSticky starts automatically.
 
-## 🚀 Installation - Just 3 Steps!
+The installer places the app in Program Files, creates desktop and Start Menu
+shortcuts, and sets up the temperature sensor and its background task. There is
+no ZIP file, no extraction, and no separate setup step.
 
-### Step 1: Download
-Click "TempSticky-Setup-1.0.0.zip" below (110 MB)
+If Windows SmartScreen appears, click **More info**, then **Run anyway**.
 
-### Step 2: Extract  
-Right-click the ZIP → "Extract All" → Choose any location
+## Features
 
-### Step 3: Run Installer
-Open the extracted folder → Double-click **"Install TempSticky.bat"**
+- Real-time CPU temperature, updated every 2 seconds
+- Color-coded states: cool, optimal, warm, and hot
+- Always-on-top sticky note that can be dragged anywhere
+- Compact pill mode and a live temperature tray badge
+- Keyboard shortcut: Ctrl + Alt + T to show or hide the note
+- Optional run at Windows login
+- Lightweight: about 50 MB RAM and roughly 1% CPU
+- Adjustable temperature thresholds and colors
 
-**That's it!** The installer automatically:
-- ✅ Asks for administrator permission (click "Yes")
-- ✅ Installs TempSticky to Program Files
-- ✅ Sets up the temperature sensor
-- ✅ Creates desktop shortcut
-- ✅ Creates Start Menu shortcut  
-- ✅ Starts TempSticky
+## System requirements
 
-**Total time: ~1 minute**
+- Windows 10 (1809 or newer) or Windows 11, 64-bit
+- 200 MB disk space
+- 50 MB RAM
+- .NET Framework 4.7.2 or newer
 
-No manual configuration needed - everything is automatic!
+## Uninstall
 
----
+1. Right-click the tray icon and choose Quit TempSticky.
+2. Open Settings, then Apps, then Installed apps.
+3. Find TempSticky and choose Uninstall.
 
-## ✨ What You Get
+## Links
 
-- 🌡️ **Real-time Temperature Monitoring** - Updates every 2 seconds
-- 🎨 **Color-Coded States** - Instantly see if your PC is cool, optimal, warm, or hot
-- 📌 **Always-On-Top Display** - Floating note that stays visible
-- 🔔 **System Tray Integration** - Live temperature icon
-- ⌨️ **Keyboard Shortcuts** - Ctrl+Alt+T to show/hide
-- 💨 **Super Lightweight** - Uses only 50MB RAM and ~1% CPU
-- 🔧 **Fully Customizable** - Adjust temperature thresholds and colors
-- 🚀 **Auto-Start Option** - Optional boot with Windows
+- Website: https://knight-dev01.github.io/TempSticky/
+- Source: https://github.com/knight-dev01/TempSticky
+- Issues: https://github.com/knight-dev01/TempSticky/issues
 
----
+## License
 
-## 🌡️ Temperature States
-
-| State | Temperature Range | Color | Icon |
-|-------|------------------|-------|------|
-| **Cool** | Below 50°C | Blue | 🔵 |
-| **Optimal** | 50°C - 75°C | Green | 🟢 |
-| **Warm** | 75°C - 88°C | Yellow | 🟡 |
-| **Hot** | 88°C and above | Red (pulsing) | 🔴 |
-
----
-
-## 💻 System Requirements
-
-- **Operating System:** Windows 10 (build 1809+) or Windows 11
-- **Disk Space:** 200 MB
-- **Memory:** 50 MB RAM
-- **.NET Framework:** 4.7.2+ (pre-installed on Windows 10/11)
-
----
-
-## 🎮 How to Use
-
-### After Installation
-
-TempSticky starts automatically! Look for the 🌡️ icon in your system tray.
-
-### Controls
-
-**Show/Hide Note:**
-- Press `Ctrl + Alt + T`
-- Or double-click the tray icon
-
-**Compact Mode:**
-- Click the `—` minimize button on the note
-- Shrinks to a slim pill showing just the temperature
-
-**Settings:**
-- Right-click the tray icon
-- Click "Settings" to customize
-
-**Auto-Start:**
-- Right-click tray icon
-- Toggle "Run at login"
-
-**Quit:**
-- Right-click tray icon
-- Click "Quit TempSticky"
-- *(Note: Clicking X just hides it to the tray!)*
-
----
-
-## 🌐 Website
-
-Beautiful landing page with full details:  
-**https://knight-dev01.github.io/TempSticky/**
-
----
-
-## 📖 Full Documentation
-
-Complete guide, troubleshooting, and advanced features:  
-**https://github.com/knight-dev01/TempSticky/blob/main/README.md**
-
----
-
-## 🔧 Troubleshooting
-
-### Can't See the Tray Icon?
-- Click the `^` (Show hidden icons) arrow in your system tray
-- Drag the TempSticky icon to the main tray area
-- It will stay there permanently
-
-### Temperature Shows "N/A"?
-- Some laptops don't expose temperature sensors
-- Try updating your chipset/motherboard drivers
-- Check if sensors work: Run `resources\scripts\probe-sensors.ps1` from install folder
-
-### Windows SmartScreen Warning?
-- Click "More info"
-- Click "Run anyway"  
-- This is normal for new software that hasn't been widely downloaded yet
-
-### Sensor Not Working?
-- The installer should set it up automatically
-- If issues persist, right-click tray icon → "Reinstall Sensor"
-
----
-
-## 🗑️ Uninstall
-
-### Option 1: Windows Settings
-1. Right-click tray icon → Quit
-2. Open Settings → Apps → Apps & features
-3. Find "TempSticky" → Uninstall
-
-### Option 2: Start Menu
-1. Right-click tray icon → Quit
-2. Start Menu → TempSticky folder → "Uninstall TempSticky"
-
-### Complete Removal
-To remove all data:
-1. Uninstall (above)
-2. Delete folder: `C:\Users\[YourName]\AppData\Local\TempSticky`
-3. Delete folder: `C:\Users\[YourName]\AppData\Roaming\temp-sticky`
-
----
-
-## 🐛 Found a Bug? Have a Suggestion?
-
-Report issues or request features:  
-**https://github.com/knight-dev01/TempSticky/issues**
-
----
-
-## ⭐ Support This Project
-
-If you find TempSticky useful:
-- ⭐ **Star this repository** - Helps others discover it
-- 📢 **Share with friends** - Spread the word
-- 🐛 **Report bugs** - Help improve it
-- 💡 **Suggest features** - Share your ideas
-
----
-
-## 📜 License
-
-**MIT License** - Free and Open Source
-
-You're free to:
-- ✅ Use commercially
-- ✅ Modify
-- ✅ Distribute
-- ✅ Use privately
-
----
-
-## 🙏 Credits
-
-**Author:** knight-dev01  
-**Version:** 1.0.0  
-**Released:** November 1, 2026
-
-Built with ❤️ using:
-- Electron
-- LibreHardwareMonitor
-- PawnIO Driver
-
----
-
-**Enjoy monitoring your temperature!** 🌡️✨
+MIT License. Free and open source.
 ```
 
-### Step 3: Upload the ZIP File
+## Publish with the GitHub API
 
-1. Scroll down to **"Attach binaries by dropping them here or selecting them"**
-2. Click **"choose them"** or drag and drop
-3. Navigate to:
-   ```
-   C:\Users\DELL\Documents\Default Project\TempSticky\dist\
-   ```
-4. Select **TempSticky-Setup-1.0.0.zip**
-5. Wait for upload (~1-2 minutes for 110 MB)
+If the GitHub CLI is available:
 
-### Step 4: Publish
-
-1. Check ✅ **"Set as the latest release"**
-2. Click **"Publish release"**
-
----
-
-## ✅ After Publishing
-
-### Your Download Link Will Be:
-```
-https://github.com/knight-dev01/TempSticky/releases/download/v1.0.0/TempSticky-Setup-1.0.0.zip
+```powershell
+gh release upload v1.0.1 "dist/TempSticky-Setup-1.0.1.exe" --clobber
 ```
 
-### Enable GitHub Pages
+Without the CLI, use the website steps above. GitHub's asset upload endpoint
+also works with a personal access token:
 
-1. Go to: https://github.com/knight-dev01/TempSticky/settings/pages
-2. Under "Source":
-   - Branch: **main**
-   - Folder: **/docs**
-3. Click **Save**
-4. Wait 1-2 minutes
-5. Your website will be live at:
-   ```
-   https://knight-dev01.github.io/TempSticky/
-   ```
-
----
-
-## 📢 Share Your Release!
-
-### For Reddit, Forums, Discord:
-
-```
-🌡️ TempSticky v1.0.0 - Free CPU Temperature Monitor
-
-Auto-installing edition for Windows 10/11!
-
-📥 Download:
-https://github.com/knight-dev01/TempSticky/releases/latest
-
-🌐 Website:
-https://knight-dev01.github.io/TempSticky/
-
-Installation is super easy:
-1. Download ZIP
-2. Extract
-3. Run "Install TempSticky.bat"
-4. Done!
-
-Features:
-✨ Real-time CPU temperature
-🎨 Color-coded states (Cool/Optimal/Warm/Hot)
-📌 Always-on-top sticky note
-⌨️ Keyboard shortcuts (Ctrl+Alt+T)
-💨 Lightweight (~50MB RAM, 1% CPU)
-🔧 Fully customizable
-
-100% Free & Open Source (MIT License)
+```powershell
+$token = "<your token>"
+$releaseId = "<numeric release id>"
+Invoke-WebRequest `
+  -Uri "https://uploads.github.com/repos/knight-dev01/TempSticky/releases/$releaseId/assets?name=TempSticky-Setup-1.0.1.exe" `
+  -Method Post `
+  -Headers @{ Authorization = "token $token" } `
+  -ContentType "application/octet-stream" `
+  -InFile "dist/TempSticky-Setup-1.0.1.exe"
 ```
 
-### For Twitter/X:
+## Check the download
 
-```
-🌡️ Just released TempSticky v1.0.0!
+After publishing, open the asset URL in a private browser window and confirm
+that the file downloads and its size matches `dist`.
 
-Free CPU temperature monitor for Windows 10/11
-✨ Auto-installer included
-🎨 Color-coded states
-📌 Always-on-top display
-💨 Super lightweight
+## Website
 
-Download: https://knight-dev01.github.io/TempSticky/
+The landing page lives in `docs/index.html`. GitHub Pages serves it from the
+`main` branch, `/docs` folder:
 
-#Windows #FreeTools #OpenSource
-```
+1. Open https://github.com/knight-dev01/TempSticky/settings/pages
+2. Set Source to `Deploy from a branch`.
+3. Choose branch `main` and folder `/docs`.
+4. Save.
 
----
+The page is published at https://knight-dev01.github.io/TempSticky/.
 
-## 🎉 You're Done!
-
-Once you upload and enable GitHub Pages, you'll have:
-
-✅ Professional installer ready for download  
-✅ Beautiful website for users  
-✅ Complete documentation  
-✅ Easy sharing links  
-✅ Download statistics on GitHub  
-
-**Your app is ready for the world!** 🚀
+When you release a new version, update the download link in `docs/index.html`
+and the version number shown on the page.

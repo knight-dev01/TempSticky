@@ -19,25 +19,29 @@
     "win": {
       "target": [
         {
-          "target": "portable",
-          "arch": ["x64"]
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
         }
       ],
       "icon": "assets/tempsticky.ico",
-      "artifactName": "TempSticky-Setup-${version}.${ext}"
+      "artifactName": "TempSticky-Setup-${version}.${ext}",
+      "signAndEditExecutable": false
     },
     "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true,
+      "oneClick": true,
+      "perMachine": true,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": false,
+      "createDesktopShortcut": "always",
       "createStartMenuShortcut": true,
       "shortcutName": "TempSticky",
       "installerIcon": "assets/tempsticky.ico",
       "uninstallerIcon": "assets/tempsticky.ico",
-      "installerHeaderIcon": "assets/tempsticky.ico",
       "deleteAppDataOnUninstall": false,
       "runAfterFinish": true,
-      "license": "LICENSE.txt"
+      "include": "installer.nsh"
     },
     "files": [
       "src/**/*",
@@ -51,21 +55,27 @@
       {
         "from": "scripts",
         "to": "scripts",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       },
       {
         "from": "sensor",
         "to": "sensor",
-        "filter": ["**/*"]
+        "filter": [
+          "**/*"
+        ]
       }
     ],
     "directories": {
       "output": "dist",
       "buildResources": "assets"
-    }
+    },
+    "afterPack": "scripts/after-pack.cjs"
   },
   "devDependencies": {
     "electron": "^33.4.11",
-    "electron-builder": "^24.13.3"
+    "electron-builder": "^24.13.3",
+    "rcedit": "^5.0.2"
   }
 }

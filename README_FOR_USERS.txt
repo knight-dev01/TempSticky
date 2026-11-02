@@ -1,127 +1,91 @@
-╔════════════════════════════════════════════════════════════╗
-║                                                            ║
-║              🌡️  TempSticky v1.0.0  🌡️                      ║
-║                                                            ║
-║         CPU Temperature Monitor for Windows 10/11         ║
-║                                                            ║
-╚════════════════════════════════════════════════════════════╝
+TempSticky v1.0.0
+CPU temperature monitor for Windows 10 and 11
 
+========================================================================
+INSTALL
+========================================================================
 
-═══════════════════════════════════════════════════════════
-  📥 QUICK START - 2 EASY STEPS
-═══════════════════════════════════════════════════════════
+1. Download TempSticky-Setup-1.0.0.exe.
 
-FIRST TIME USERS:
+2. Double-click the file.
 
-  1️⃣  Double-click:  SETUP.bat
-      → Click "Yes" when Windows asks
-      → Follow the wizard (takes ~1 minute)
+3. If Windows asks for permission, choose Yes.
 
-  2️⃣  Double-click:  START.bat  (or TempSticky.exe)
-      → Done! Temperature monitor appears!
+4. Wait a few seconds. TempSticky starts automatically.
 
+The installer puts the app in Program Files, creates a desktop shortcut and a
+Start Menu entry, and sets up the temperature sensor and its background task.
+There is no ZIP file, no extraction, and no separate setup step.
 
-ALREADY SET UP?
+If Windows SmartScreen appears, click "More info", then "Run anyway". This is
+normal for a new installer that has not been downloaded very often yet.
 
-  Just double-click:  START.bat  (or TempSticky.exe)
+========================================================================
+USING TEMPSTICKY
+========================================================================
 
+The note shows the current CPU temperature. It stays on top of other windows
+and can be dragged anywhere on screen.
 
-═══════════════════════════════════════════════════════════
-  📁 IMPORTANT FILES
-═══════════════════════════════════════════════════════════
+Show or hide the note:
+  Press Ctrl + Alt + T, or double-click the tray icon.
 
-  SETUP.bat          ← Run this FIRST (one-time setup)
-  START.bat          ← Use this to launch TempSticky
-  TempSticky.exe     ← The main application
-  resources/         ← Scripts and sensor code
+Compact mode:
+  Click the minus button on the note to switch to a slim pill.
 
+Settings:
+  Right-click the tray icon and choose Settings.
 
-═══════════════════════════════════════════════════════════
-  🎮 HOW TO USE
-═══════════════════════════════════════════════════════════
+Temperature colours:
+  Cool      below 50 C        cyan
+  Optimal   50 to 75 C        green
+  Warm      75 to 88 C        amber
+  Hot       88 C and above    red
 
-SHOW/HIDE:
-  • Press: Ctrl + Alt + T
-  • Or double-click the tray icon 🌡️
+Quit:
+  Right-click the tray icon and choose Quit TempSticky.
+  The X button only hides the note. It does not quit the app.
 
-COMPACT MODE:
-  • Click the "—" button on the note
-  • Changes to slim pill mode
+========================================================================
+SYSTEM REQUIREMENTS
+========================================================================
 
-SETTINGS:
-  • Right-click the tray icon
-  • Choose "Settings"
+  Windows 10 (1809 or newer) or Windows 11, 64-bit
+  200 MB free disk space
+  50 MB RAM
+  .NET Framework 4.7.2 or newer (included with Windows 10 and 11)
 
-QUIT:
-  • Right-click tray icon
-  • Choose "Quit TempSticky"
-  • NOTE: Clicking ✕ just hides it!
+========================================================================
+TROUBLESHOOTING
+========================================================================
 
+Temperature shows N/A:
+  Some laptops do not expose CPU sensors. Try updating the chipset or
+  motherboard drivers.
 
-═══════════════════════════════════════════════════════════
-  🌡️ TEMPERATURE COLORS
-═══════════════════════════════════════════════════════════
+Tray icon is hidden:
+  Click the ^ arrow in the notification area and drag the TempSticky icon
+  onto the taskbar.
 
-  🔵 COOL     - Below 50°C
-  🟢 OPTIMAL  - 50-75°C
-  🟡 WARM     - 75-88°C
-  🔴 HOT      - 88°C and above
+Sensor did not start:
+  Right-click the tray icon and choose the sensor install or restart option.
 
+========================================================================
+UNINSTALL
+========================================================================
 
-═══════════════════════════════════════════════════════════
-  💻 SYSTEM REQUIREMENTS
-═══════════════════════════════════════════════════════════
+1. Right-click the tray icon and choose Quit TempSticky.
+2. Open Settings, then Apps, then Installed apps.
+3. Find TempSticky and choose Uninstall.
 
-  ✓ Windows 10 (build 1809+) or Windows 11
-  ✓ 200 MB disk space
-  ✓ 50 MB RAM
-  ✓ .NET Framework 4.7.2+ (Windows 10/11 has this)
+The uninstaller also removes the temperature sensor task.
 
+========================================================================
+LINKS
+========================================================================
 
-═══════════════════════════════════════════════════════════
-  ❓ TROUBLESHOOTING
-═══════════════════════════════════════════════════════════
+Website:  https://knight-dev01.github.io/TempSticky/
+Source:   https://github.com/knight-dev01/TempSticky
+Issues:   https://github.com/knight-dev01/TempSticky/issues
 
-"Temperature sensor not installed"
-  → Run SETUP.bat again
-
-"Can't see the tray icon"
-  → Click the ^ arrow in system tray
-  → Drag TempSticky icon to main area
-
-"Temperature shows N/A"
-  → Some laptops don't expose temperature sensors
-  → Try updating chipset drivers
-
-"Windows protected your PC" message
-  → Click "More info"
-  → Click "Run anyway"
-  → This is normal for new software
-
-
-═══════════════════════════════════════════════════════════
-  🗑️ UNINSTALL
-═══════════════════════════════════════════════════════════
-
-  1. Right-click tray icon → Quit
-  2. Double-click: resources\scripts\uninstall.ps1
-  3. Delete the TempSticky folder
-  4. Done!
-
-
-═══════════════════════════════════════════════════════════
-  📖 MORE INFO
-═══════════════════════════════════════════════════════════
-
-  Website:  https://knight-dev01.github.io/TempSticky/
-  GitHub:   https://github.com/knight-dev01/TempSticky
-  Issues:   https://github.com/knight-dev01/TempSticky/issues
-
-
-═══════════════════════════════════════════════════════════
-  ❤️ ENJOY YOUR TEMPERATURE MONITOR!
-═══════════════════════════════════════════════════════════
-
-  Version: 1.0.0
-  License: MIT (Free & Open Source)
-  Author:  knight-dev01
+License: MIT (free and open source)

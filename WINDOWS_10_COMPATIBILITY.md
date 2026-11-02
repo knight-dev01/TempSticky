@@ -1,191 +1,153 @@
-# Windows 10 Compatibility ✅
+# Windows 10 compatibility
 
-## Yes! TempSticky Works on Windows 10
+TempSticky is fully compatible with both Windows 10 and Windows 11.
 
-TempSticky is **fully compatible** with both Windows 10 and Windows 11.
+## System requirements
 
-## System Requirements
+- Windows 10 (version 1809 or newer) or Windows 11, 64-bit
+- .NET Framework 4.7.2 or newer (pre-installed on Windows 10 1803 and later)
+- 50 MB RAM
+- About 200 MB free disk space
 
-### Minimum Requirements
-- **OS**: Windows 10 (version 1809 or later) or Windows 11
-- **Node.js**: v14.0.0 or higher
-- **.NET Framework**: 4.7.2 or later (pre-installed on Windows 10 1803+)
-- **RAM**: 50 MB
-- **Disk Space**: ~200 MB (including dependencies)
+Node.js is only required to build TempSticky from source. The installer
+includes everything users need.
 
-### Windows 10 Specific Notes
+## Supported features
 
-#### ✅ Fully Supported Features
-- Real-time CPU/GPU temperature monitoring
+- Real-time CPU and GPU temperature monitoring
 - System tray integration
 - Always-on-top sticky note
 - Compact pill mode
 - Color-coded temperature states
 - Auto-start at login
-- Keyboard shortcuts (Ctrl + Alt + T)
+- Keyboard shortcut: Ctrl + Alt + T
 - LibreHardwareMonitor integration
-- PawnIO driver (HVCI/Memory Integrity compatible)
+- PawnIO driver (compatible with Memory Integrity / HVCI)
 
-#### 🔍 Windows 10 Versions Tested
-- ✅ Windows 10 21H2 (Build 19044)
-- ✅ Windows 10 22H2 (Build 19045)
-- ⚠️ Earlier versions should work but aren't officially tested
+## Windows 10 versions tested
 
-#### 📋 Windows 10 vs Windows 11 Differences
+- Windows 10 21H2 (build 19044)
+- Windows 10 22H2 (build 19045)
+
+Earlier versions should work but are not officially tested.
+
+## Windows 10 compared with Windows 11
 
 | Feature | Windows 10 | Windows 11 | Notes |
-|---------|-----------|-----------|-------|
-| Temperature monitoring | ✅ | ✅ | Identical |
-| Tray icon | ✅ | ✅ | Works in both system trays |
-| Auto-start | ✅ | ✅ | Uses Task Scheduler |
-| Keyboard shortcuts | ✅ | ✅ | Same shortcuts |
-| UI rendering | ✅ | ✅ | Electron works identically |
-| Memory Integrity | ✅ | ✅ | PawnIO driver compatible |
+| --- | --- | --- | --- |
+| Temperature monitoring | Yes | Yes | Identical |
+| Tray icon | Yes | Yes | Works in both system trays |
+| Auto-start | Yes | Yes | Uses Task Scheduler |
+| Keyboard shortcuts | Yes | Yes | Same shortcuts |
+| UI rendering | Yes | Yes | Electron works identically |
+| Memory Integrity | Yes | Yes | PawnIO driver compatible |
 
-## Installation on Windows 10
+## Installation
 
-The installation process is **identical** for both Windows 10 and 11:
+The process is identical on Windows 10 and Windows 11:
 
-```bash
-# 1. Clone or download the repository
-git clone https://github.com/knight-dev01/TempSticky.git
-cd TempSticky
+1. Download `TempSticky-Setup-1.0.0.exe`.
+2. Double-click it and choose **Yes** when Windows asks for permission.
+3. Wait a few seconds. TempSticky starts automatically.
 
-# 2. Install Node.js dependencies
-npm install
+The installer sets up the app, shortcuts, temperature sensor, and the sensor
+background task. No ZIP extraction and no separate setup step are needed.
 
-# 3. Setup temperature sensor (one-time, requires admin)
-powershell -ExecutionPolicy Bypass -File scripts\setup-sensor.ps1
+## Verified components
 
-# 4. Run the application
-npm start
-```
+### Electron
 
-## Verified Compatibility Components
+Electron 33.x supports Windows 10 (1809 and newer) and Windows 11. Hardware
+acceleration works on both.
 
-### ✅ Electron
-- Electron 33.x supports Windows 10 (1809+) and Windows 11
-- Hardware acceleration works on both
+### .NET Framework
 
-### ✅ .NET Framework
-- Target: .NET Framework 4.7.2
-- Pre-installed on Windows 10 (version 1803+)
-- If missing, Windows Update will install it
+TempSticky targets .NET Framework 4.7.2, which ships with Windows 10 1803 and
+later. Windows Update can install it if it is missing.
 
-### ✅ LibreHardwareMonitor
-- Works on Windows 10/11
-- Compatible with both Intel and AMD CPUs
-- Supports modern sensor chips
+### LibreHardwareMonitor
 
-### ✅ PawnIO Driver
-- Kernel driver signed for Windows 10/11
-- Compatible with Memory Integrity (HVCI)
-- No Secure Boot conflicts
+Works on Windows 10 and 11, with both Intel and AMD CPUs, and supports modern
+sensor chips.
 
-### ✅ Node.js
-- LTS versions (14+) support Windows 10/11
-- Native modules compile correctly
+### PawnIO driver
 
-## Known Issues (Both Windows 10 & 11)
+The kernel driver is signed for Windows 10 and 11, is compatible with Memory
+Integrity (HVCI), and has no Secure Boot conflicts.
 
-These apply to both operating systems:
+## Known issues
 
-1. **GPU Temperature**: Not all GPUs expose temperature sensors
-   - Intel UHD 620: No GPU temp available
-   - Most NVIDIA/AMD: Works fine
+1. GPU temperature is not available on every GPU. For example, Intel UHD 620
+   does not expose a GPU temperature.
+2. The tray icon may start in the hidden-icons overflow. Drag it onto the
+   taskbar once to keep it visible.
 
-2. **First Launch**: Requires UAC elevation for sensor setup
-   - This is a one-time requirement
-   - Same behavior on Win 10 & 11
-
-3. **Hidden Tray Icons**: May appear in overflow
-   - Drag tray icon to main area to keep it visible
-   - Same on both OS versions
-
-## Windows 10 Specific Considerations
-
-### Task Scheduler
-- Uses the same Task Scheduler API on both OS versions
-- "TempSticky Sensor" task works identically
-
-### System Tray
-- Windows 10 tray works perfectly
-- Icon updates and notifications function normally
-
-### Keyboard Hooks
-- Global keyboard shortcuts (Ctrl + Alt + T) work on Windows 10
-- No differences from Windows 11
-
-## Performance on Windows 10
+## Performance
 
 | Metric | Windows 10 | Windows 11 |
-|--------|-----------|-----------|
-| CPU usage | ~0.5-1% | ~0.5-1% |
-| RAM usage | ~50-70 MB | ~50-70 MB |
-| Startup time | ~2-3s | ~2-3s |
-| Sensor polling | 2s interval | 2s interval |
+| --- | --- | --- |
+| CPU usage | about 0.5 to 1% | about 0.5 to 1% |
+| RAM usage | about 50 to 70 MB | about 50 to 70 MB |
+| Startup time | about 2 to 3 seconds | about 2 to 3 seconds |
+| Sensor polling | every 2 seconds | every 2 seconds |
 
-**Performance is identical on both platforms.**
+Performance is identical on both platforms.
 
-## Troubleshooting Windows 10 Specific Issues
+## Troubleshooting
 
-### .NET Framework Check
+### Check the .NET Framework version
+
 ```powershell
-# Check if .NET 4.7.2+ is installed
-Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\' | Get-ItemPropertyValue -Name Release | ForEach-Object { $_ -ge 461808 }
-# Should return: True
+Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full\' |
+  Get-ItemPropertyValue -Name Release
 ```
 
-### Node.js Version Check
-```bash
-node --version
-# Should be v14.0.0 or higher
-```
+A value of 461808 or higher means .NET Framework 4.7.2 or newer is installed.
 
-### Windows Version Check
+### Check the Windows version
+
 ```powershell
 [System.Environment]::OSVersion.Version
-# Should show 10.0.17763 or higher
 ```
 
-## Upgrading from Windows 10 to 11
+The result should be 10.0.17763 or higher.
 
-If you upgrade your OS:
-1. TempSticky continues to work without changes
-2. No reinstallation needed
-3. Settings are preserved
-4. Sensor task continues to run
+### Check the Node.js version for source builds
 
-## Support Statement
+```powershell
+node --version
+```
 
-**Official Support**: Windows 10 (1809+) and Windows 11
+Node.js 14 or higher is required to build from source.
 
-**Testing**: Actively tested on both platforms
+## Upgrading from Windows 10 to Windows 11
 
-**Compatibility**: 100% feature parity between Windows 10 and 11
+TempSticky continues to work without changes. No reinstallation is needed,
+settings are preserved, and the sensor task keeps running.
+
+## Support statement
+
+Windows 10 (1809 and newer) and Windows 11 are officially supported. Both
+platforms have feature parity, and TempSticky is tested on both.
 
 ## FAQ
 
-**Q: Do I need to do anything different on Windows 10?**  
-A: No, the installation and usage are identical.
+**Do I need to do anything different on Windows 10?**
 
-**Q: Will it slow down my Windows 10 PC?**  
-A: No, resource usage is minimal (~1% CPU, 50MB RAM).
+No. Installation and usage are identical.
 
-**Q: Can I use it on Windows 10 LTSC?**  
-A: Yes, as long as .NET 4.7.2+ and Node.js are installed.
+**Will it slow down my Windows 10 PC?**
 
-**Q: Does it work with Windows 10 Home?**  
-A: Yes, all editions (Home, Pro, Enterprise) are supported.
+No. Resource usage is minimal, around 1% CPU and 50 MB RAM.
 
-**Q: What about Windows 8.1 or 7?**  
-A: Not officially supported. Windows 10 (1809+) is the minimum.
+**Can I use it on Windows 10 LTSC?**
 
-## Conclusion
+Yes, as long as .NET Framework 4.7.2 or newer is available.
 
-✅ **TempSticky fully supports Windows 10**  
-✅ **No feature limitations**  
-✅ **Same performance and stability**  
-✅ **Identical installation process**
+**Does it work with Windows 10 Home?**
 
-You can confidently use TempSticky on Windows 10!
+Yes. Home, Pro, and Enterprise editions are supported.
+
+**What about Windows 8.1 or Windows 7?**
+
+They are not officially supported. Windows 10 (1809 and newer) is the minimum.

@@ -6,7 +6,7 @@ changes colour as the machine moves between **cool → optimal → warm → high
 
 ```
 ┌──────────────────────────────┐
-│ ● SYSTEM TEMP      ⚲  ⚙  —  ✕ │
+│ ● SYSTEM TEMP                 _  X │
 │                              │
 │            62 °C             │
 │         [ OPTIMAL ]          │
@@ -18,14 +18,25 @@ changes colour as the machine moves between **cool → optimal → warm → high
 └──────────────────────────────┘
 ```
 
-## Run it
+## Install on Windows
+
+Download `TempSticky-Setup-1.0.0.exe` from the
+[latest release](https://github.com/knight-dev01/TempSticky/releases/latest),
+double-click it, and approve the Windows permission prompt. The installer sets
+up the app, the desktop and Start Menu shortcuts, and the temperature sensor
+task, then starts TempSticky automatically.
+
+The rest of this document describes how to run and develop TempSticky from
+source.
+
+## Run from source
 
 ```powershell
 cd "C:\Users\DELL\Documents\Default Project\TempSticky"
 npm start
 ```
 
-The note is draggable, stays on top, and hides to the tray with **✕**.
+The note is draggable, stays on top, and hides to the tray with the **X** button.
 `Ctrl + Alt + T` shows/hides it, and double-clicking the tray icon does the same.
 The first time you hide it, a notification reminds you where it went.
 
@@ -36,7 +47,7 @@ The first time you hide it, a notification reminds you where it went.
 3. Launch the **TempSticky** desktop shortcut again — it re-shows the running copy instead of starting a second one.
 4. Tray menu → **Reset note size & position** if it ended up off-screen or as a tiny pill.
 
-`✕` hides; it does **not** quit. Use tray menu → **Quit TempSticky** to stop it.
+`X` hides; it does **not** quit. Use tray menu → **Quit TempSticky** to stop it.
 
 It is already set to **run at login**; toggle that (and every other option) from
 the gear menu or the tray menu.
@@ -61,7 +72,7 @@ shows CPU, GPU and load. The tray menu also has a live reading at the top.
 | Warm | 75 – 88 °C | amber |
 | High | 88 °C and above | red (pulsing dot) |
 
-Change them live in **⚙ → Cool below / Optimal up to / High above**. Settings
+Change them live in **Settings → Cool below / Optimal up to / High above**. Settings
 are saved to `%APPDATA%\temp-sticky\settings.json`.
 
 ## How it works

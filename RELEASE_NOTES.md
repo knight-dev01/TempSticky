@@ -1,32 +1,81 @@
 # TempSticky v1.0.0
 
+A persistent desktop temperature overlay for Windows 10 and 11.
+
+## Download
+
+Download `TempSticky-Setup-1.0.0.exe` (78 MB) from the release assets.
+
+## Install
+
+1. Download the installer.
+2. Double-click `TempSticky-Setup-1.0.0.exe`.
+3. Choose **Yes** when Windows asks for permission.
+4. Wait a few seconds. TempSticky starts automatically.
+
+The installer places the app in Program Files, creates desktop and Start Menu
+shortcuts, and sets up the temperature sensor and its background task. There is
+no ZIP file, no extraction, and no separate setup step.
+
+If Windows SmartScreen appears, click **More info**, then **Run anyway**. This
+is normal for a new unsigned installer.
+
 ## Features
 
-- **Live System Temperature Monitoring**: Displays real-time CPU/GPU temperature in a sticky note overlay
-- **Visual Temperature States**: Color-coded indicators for optimal (green), warm (yellow), and hot (red) states
-- **System Tray Integration**: Runs in the background with easy access from the system tray
-- **Persistent Display**: Sticky note stays on top of other windows for constant monitoring
-- **Lightweight**: Minimal resource usage while providing essential temperature information
+- Real-time CPU temperature, updated every 2 seconds
+- Color-coded states: cool, optimal, warm, and hot
+- Always-on-top sticky note that can be dragged anywhere
+- Compact pill mode and a live temperature tray badge
+- Keyboard shortcut: Ctrl + Alt + T to show or hide the note
+- Optional run at Windows login
+- Lightweight: about 50 MB RAM and roughly 1% CPU
+- Adjustable temperature thresholds and colors
 
-## Installation
+## Temperature states
 
-1. Clone the repository
-2. Run `npm install` to install dependencies
-3. Run `npm start` to launch the application
+| State | Default range | Color |
+| --- | --- | --- |
+| Cool | below 50 C | cyan |
+| Optimal | 50 to 75 C | green |
+| Warm | 75 to 88 C | amber |
+| Hot | 88 C and above | red |
 
-## System Requirements
+## System requirements
 
-- Windows 10/11
-- Node.js 14 or higher
-- .NET Framework (for temperature sensor)
+- Windows 10 (1809 or newer) or Windows 11, 64-bit
+- 200 MB disk space
+- 50 MB RAM
+- .NET Framework 4.7.2 or newer (included with Windows 10 and 11)
 
-## Usage
+## How to use
 
-1. Launch the application
-2. The sticky note will appear showing current temperature
-3. Click the system tray icon for options
-4. Temperature updates automatically every few seconds
+- Drag the note to reposition it.
+- Press Ctrl + Alt + T or double-click the tray icon to show or hide it.
+- Click the minus button to switch to compact pill mode.
+- Right-click the tray icon for settings, auto-start, sensor restart, and quit.
+- The X button hides the note to the tray. Use Quit TempSticky to exit.
 
----
+## Uninstall
 
-**Note**: This is the initial release. Please report any issues on GitHub.
+1. Right-click the tray icon and choose Quit TempSticky.
+2. Open Settings, then Apps, then Installed apps.
+3. Find TempSticky and choose Uninstall.
+
+The uninstaller also removes the temperature sensor task.
+
+## Known issues
+
+- GPU temperature is not available on all hardware. For example, Intel UHD 620
+  does not expose a GPU temperature.
+- Some laptops do not expose CPU temperature sensors. Updating the chipset or
+  motherboard drivers may help.
+
+## Links
+
+- Website: https://knight-dev01.github.io/TempSticky/
+- Source: https://github.com/knight-dev01/TempSticky
+- Issues: https://github.com/knight-dev01/TempSticky/issues
+
+## License
+
+MIT License. Free and open source.
